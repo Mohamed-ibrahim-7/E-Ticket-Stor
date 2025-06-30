@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Actor>
+
+@{
+    ViewData["Title"] = "Actors";
+}
+
+<div class="container mt-4">
+    <h2 class="text-primary mb-4">All Actors</h2>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Bio</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var actor in Model)
+            {
+                <tr>
+                    <td class="text-center">
+                        <img src="@Url.Content("~/images/" + actor.ProfilePictureURL)"
+                             alt="Actor"
+                             style="max-width: 100px; border-radius: 50%;" />
+                    </td>
+                    <td>@actor.FullName</td>
+                    <td>@actor.Bio</td>
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@actor.Id" class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-action="Details" asp-route-id="@actor.Id" class="btn btn-sm btn-info">Details</a>
+                        <a asp-action="Delete" asp-route-id="@actor.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Create" class="btn btn-success">+ Add New Actor</a>
+</div>

@@ -1,0 +1,72 @@
+﻿@model E_Ticket_Stor.Data.ViewModels.NewMovieVM
+
+@{
+    ViewData["Title"] = "إضافة فيلم جديد";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>صورة الفيلم</label>
+        <input type="file" name="ImageFile" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StartDate"></label>
+        <input asp-for="StartDate" type="date" class="form-control" />
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EndDate"></label>
+        <input asp-for="EndDate" type="date" class="form-control" />
+        <span asp-validation-for="EndDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MovieCategory"></label>
+        <select asp-for="MovieCategory" class="form-control" asp-items="Html.GetEnumSelectList<MovieCategory>()"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CinemaId"></label>
+        <select asp-for="CinemaId" class="form-control" asp-items="ViewBag.Cinemas"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ProducerId"></label>
+        <select asp-for="ProducerId" class="form-control" asp-items="ViewBag.Producers"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ActorIds"></label>
+        <select asp-for="ActorIds" asp-items="ViewBag.Actors" class="form-control" multiple></select>
+    </div>
+
+    <button type="submit" class="btn btn-success">حفظ</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

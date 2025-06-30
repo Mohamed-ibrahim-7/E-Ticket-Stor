@@ -1,0 +1,13 @@
+﻿@model E_Ticket_Stor.Models.Cinema
+
+@{
+    ViewData["Title"] = "Cinema Details";
+}
+
+<div class="container mt-4 text-center">
+    <img src="@Model.Logo" class="rounded shadow mb-3" style="max-width: 150px;" alt="Logo" />
+    <h3 class="text-primary">@Model.Name</h3>
+    <p class="text-muted">@Model.Description</p>
+
+    <a asp-action="Index" class="btn btn-secondary mt-3">Back to List</a>
+</div>

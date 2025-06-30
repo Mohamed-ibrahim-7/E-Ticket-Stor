@@ -1,0 +1,61 @@
+﻿@model E_Ticket_Stor.Models.Actor
+
+@{
+    ViewData["Title"] = "Edit Actor";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h3 class="text-center text-primary mb-4">Edit Actor</h3>
+
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group text-center mb-3">
+                    <img id="imagePreview"
+                         src="@Url.Content("~/images/" + Model.ProfilePictureURL)"
+                         class="rounded-circle border shadow"
+                         style="max-width: 150px;" alt="Image" />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="form-label fw-bold">Upload New Image</label>
+                    <input type="file" name="ImageFile" id="ImageFile" class="form-control" />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="FullName" class="form-label fw-bold"></label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Bio" class="form-label fw-bold"></label>
+                    <textarea asp-for="Bio" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="Bio" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-end">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById("ImageFile").addEventListener("change", function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (evt) {
+                    document.getElementById("imagePreview").src = evt.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+}

@@ -1,0 +1,91 @@
+﻿@model List<Movie>
+
+@{
+    ViewData["Title"] = "قائمة الأفلام";
+}
+
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">🎬 الأفلام المعروضة</h1>
+            <p class="lead fw-normal text-white-50 mb-0">احجز تذكرتك الآن واستمتع بالمشاهدة</p>
+        </div>
+    </div>
+</header>
+
+<!-- عرض الأفلام -->
+<div class="container">
+    <section class="py-5">
+        @if (Model.Any())
+        {
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col mb-5">
+                            <div class="card h-100 shadow">
+                                <!-- التصنيف -->
+                                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+                                    @item.movieCategory
+                                </div>
+
+                                <!-- صورة الفيلم -->
+                                <a asp-controller="Movies" asp-action="Details" asp-route-id="@item.Id">
+                                    <img class="card-img-top" src="@item.ImageURL" alt="@item.Name" />
+                                </a>
+
+                                <!-- تفاصيل الفيلم -->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <h5 class="fw-bolder">@item.Name</h5>
+                                        <p class="text-muted">يبدأ العرض: @item.StartDate.ToString("dd MMM yyyy")</p>
+                                        <p class="text-muted">سعر التذكرة: <strong>@item.Price.ToString("c")</strong></p>
+
+                                        @if (DateTime.Now < item.StartDate)
+                                        {
+                                            <span class="badge bg-primary">قريباً</span>
+                                        }
+                                        else if (DateTime.Now >= item.StartDate && DateTime.Now <= item.EndDate)
+                                        {
+                                            <span class="badge bg-success">متاح الآن</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger">انتهى العرض</span>
+                                        }
+                                    </div>
+                                </div>
+
+                                <!-- زر التفاصيل وزر الحجز -->
+                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                    <div class="text-center mb-2">
+                                        <a class="btn btn-outline-dark w-100"
+                                            asp-controller="Moives" asp-action="Details" asp-route-id="@item.Id">
+                                            <i class="bi bi-camera-reels"></i> عرض الفيلم
+                                        </a>
+                                    </div>
+                                    <form asp-controller="Home" asp-action="BookTicket" method="post">
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <button type="submit" class="btn btn-success w-100"
+                                        @(DateTime.Now > item.EndDate ? "disabled" : "")>
+                                            <i class="bi bi-ticket-fill"></i> احجز الآن
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h3 class="text-danger">لا توجد أفلام حالياً</h3>
+                </div>
+            </div>
+        }
+    </section>
+</div>

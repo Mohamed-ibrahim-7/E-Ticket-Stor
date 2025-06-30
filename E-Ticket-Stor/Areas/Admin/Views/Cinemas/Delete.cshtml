@@ -1,0 +1,19 @@
+﻿@model E_Ticket_Stor.Models.Cinema
+
+@{
+    ViewData["Title"] = "Delete Cinema";
+}
+
+<div class="container mt-4 text-center">
+    <h4 class="text-danger mb-3">Are you sure you want to delete this cinema?</h4>
+
+    <img src="@Model.Logo" class="rounded shadow mb-3" style="max-width: 120px;" alt="Logo" />
+    <h5>@Model.Name</h5>
+    <p>@Model.Description</p>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

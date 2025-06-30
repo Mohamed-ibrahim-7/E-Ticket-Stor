@@ -1,0 +1,41 @@
+﻿@model IEnumerable<E_Ticket_Stor.Models.Cinema>
+
+@{
+    ViewData["Title"] = "All Cinemas";
+}
+
+<div class="container mt-4">
+    <h2 class="text-primary mb-4">Cinemas List</h2>
+
+    <table class="table table-bordered table-striped align-middle">
+        <thead class="table-dark text-center">
+            <tr>
+                <th style="width: 120px;">Logo</th>
+                <th style="width: 180px;">Name</th>
+                <th>Description</th>
+                <th style="width: 220px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">
+                        <img src="@item.Logo" alt="Logo" class="img-thumbnail" style="max-width: 80px;" />
+                    </td>
+                    <td>@item.Name</td>
+                    <td>
+                        @(item.Description.Length > 100 ? item.Description.Substring(0, 100) + "..." : item.Description)
+                    </td>
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning me-1">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info me-1">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Create" class="btn btn-success mt-2">+ Add New Cinema</a>
+</div>
