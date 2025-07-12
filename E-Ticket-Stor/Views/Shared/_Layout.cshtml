@@ -34,6 +34,20 @@
                         </li> *@
                         
                     </ul>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        @if (User is not null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="/Identity/Profile/Index">Welcome @User.Identity.Name</a></li>
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="/Identity/Account/Logout">Logout</a></li>
+                        }
+                        else
+                        {
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="/Identity/Account/Register">Register</a></li>
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="/Identity/Account/Login">Login</a></li>
+                        }
+
+                    </ul>x
+
 
                     <form class="d-flex">
                         <a class="btn btn-outline-warning" asp-controller="Orders" asp-action="ShoppingCart">
